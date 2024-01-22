@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+.button {
+  border: none;
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+}
+</style>
+
+<script>
+  var numberOfButtons;
+  var number;
+  function saveNumberOfButtons()
+  {
+    numberOfButtons = document.getElementById("nrButtons").value;
+  }
+  function randomVal(val) {
+    return Math.floor(Math.random() * val);
+  }
+
+  function randomColor() {
+    return "rgb(" + randomVal(255) + "," + randomVal(255) + "," + randomVal(255) + ")";
+  }
+
+  function winningNumber() {
+    number = Math.floor(Math.random() * numberOfButtons);
+  };
+  
+  function createButtons(){
+    var place = document.getElementById("div1");
+    for (var b=0; b<numberOfButtons;b++)
+    {
+      var button = document.createElement("button");
+      let rgb = randomColor();
+      button.setAttribute("id", b);
+      button.setAttribute("class", "button")
+      button.setAttribute("style", "background-color:" + rgb);
+      button.innerHTML=b+1;
+      place.appendChild(button);
+  
+      button.addEventListener("click", function(winningNumber) {
+        let idCastigator = this.getAttribute("id");
+        if(number == idCastigator) {
+          alert("Winner :)");
+        } else {
+          alert("Try again :(")
+        }
+      });
+    }
+  }
+
+</script>
+</head>
+<body>
+  <input type="number" id="nrButtons" placeholder="Enter a number">
+  <button onclick = "saveNumberOfButtons(); winningNumber(); createButtons()"> Submit </button>
+  
+  <div id="div1" class="div"> 
+  </div>
+  
+</body>
+</html>
